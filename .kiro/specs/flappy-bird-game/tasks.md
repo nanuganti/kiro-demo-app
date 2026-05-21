@@ -31,26 +31,26 @@ Implementation tasks for the Flappy Bird game built as a Next.js web application
   - [x] 1.4 Install a canvas mock library (`jest-canvas-mock` or equivalent) for render tests
   - [x] 1.5 Create the directory structure: `src/components/`, `src/game/`, `src/game/__tests__/`
 
-- [ ] 2. Define data models and game configuration
-  - [-] 2.1 Create `src/game/types.ts` with `GameConfig`, `Bird`, `Pipe`, `GamePhase`, and `GameState` interfaces matching the design document
-  - [~] 2.2 Create `src/game/config.ts` exporting the default `GameConfig` constant (canvasWidth: 400, canvasHeight: 600, gravity: 1500, flapVelocity: -500, birdSpeed: 200, pipeWidth: 60, gapHeight: 150, pipeInterval: 250, minGapY: 60, maxGapY: 390, targetFPS: 60)
-  - [~] 2.3 Create `src/game/initialState.ts` exporting a `createInitialState(config: GameConfig): GameState` factory that initializes bird at x = canvasWidth * 0.25, y = canvasHeight / 2, vy = 0, phase = 'START', score = 0, pipes = []
+- [x] 2. Define data models and game configuration
+  - [x] 2.1 Create `src/game/types.ts` with `GameConfig`, `Bird`, `Pipe`, `GamePhase`, and `GameState` interfaces matching the design document
+  - [x] 2.2 Create `src/game/config.ts` exporting the default `GameConfig` constant (canvasWidth: 400, canvasHeight: 600, gravity: 1500, flapVelocity: -500, birdSpeed: 200, pipeWidth: 60, gapHeight: 150, pipeInterval: 250, minGapY: 60, maxGapY: 390, targetFPS: 60)
+  - [x] 2.3 Create `src/game/initialState.ts` exporting a `createInitialState(config: GameConfig): GameState` factory that initializes bird at x = canvasWidth * 0.25, y = canvasHeight / 2, vy = 0, phase = 'START', score = 0, pipes = []
 
-- [ ] 3. Implement pure physics subsystem functions
-  - [~] 3.1 Implement `applyPhysics(bird: Bird, dt: number, config: GameConfig): Bird` in `src/game/physics.ts` — applies gravity (vy += gravity * dt), updates y position, clamps y to [0, canvasHeight], zeroes vy if y reaches top boundary
-  - [~] 3.2 Implement `applyFlap(bird: Bird, config: GameConfig): Bird` in `src/game/physics.ts` — sets vy to config.flapVelocity regardless of current vy
-  - [~] 3.3 Implement `resetGame(state: GameState, config: GameConfig): GameState` in `src/game/physics.ts` — returns a fresh initial state with score = 0 and pipes = []
+- [x] 3. Implement pure physics subsystem functions
+  - [x] 3.1 Implement `applyPhysics(bird: Bird, dt: number, config: GameConfig): Bird` in `src/game/physics.ts` — applies gravity (vy += gravity * dt), updates y position, clamps y to [0, canvasHeight], zeroes vy if y reaches top boundary
+  - [x] 3.2 Implement `applyFlap(bird: Bird, config: GameConfig): Bird` in `src/game/physics.ts` — sets vy to config.flapVelocity regardless of current vy
+  - [x] 3.3 Implement `resetGame(state: GameState, config: GameConfig): GameState` in `src/game/physics.ts` — returns a fresh initial state with score = 0 and pipes = []
 
-- [ ] 4. Implement pipe management subsystem functions
-  - [~] 4.1 Implement `spawnPipe(config: GameConfig): Pipe` in `src/game/pipes.ts` — generates a random gapY clamped to [minGapY, maxGapY], sets x = canvasWidth, passed = false
-  - [~] 4.2 Implement `updatePipes(pipes: Pipe[], dt: number, config: GameConfig): Pipe[]` in `src/game/pipes.ts` — decrements each pipe's x by birdSpeed * dt, filters out pipes where x + pipeWidth <= 0
+- [x] 4. Implement pipe management subsystem functions
+  - [x] 4.1 Implement `spawnPipe(config: GameConfig): Pipe` in `src/game/pipes.ts` — generates a random gapY clamped to [minGapY, maxGapY], sets x = canvasWidth, passed = false
+  - [x] 4.2 Implement `updatePipes(pipes: Pipe[], dt: number, config: GameConfig): Pipe[]` in `src/game/pipes.ts` — decrements each pipe's x by birdSpeed * dt, filters out pipes where x + pipeWidth <= 0
 
-- [ ] 5. Implement collision detection and scoring
-  - [~] 5.1 Implement `checkCollision(bird: Bird, pipes: Pipe[], config: GameConfig): boolean` in `src/game/collision.ts` — returns true if bird bounding box overlaps any upper or lower pipe segment, or if bird.y + bird.height / 2 >= canvasHeight
-  - [~] 5.2 Implement `updateScore(score: number, bird: Bird, pipes: Pipe[], config: GameConfig): { score: number; pipes: Pipe[] }` in `src/game/scoring.ts` — increments score by 1 and marks pipe.passed = true for each pipe where bird.x > pipe.x + pipeWidth and pipe.passed === false
+- [x] 5. Implement collision detection and scoring
+  - [x] 5.1 Implement `checkCollision(bird: Bird, pipes: Pipe[], config: GameConfig): boolean` in `src/game/collision.ts` — returns true if bird bounding box overlaps any upper or lower pipe segment, or if bird.y + bird.height / 2 >= canvasHeight
+  - [x] 5.2 Implement `updateScore(score: number, bird: Bird, pipes: Pipe[], config: GameConfig): { score: number; pipes: Pipe[] }` in `src/game/scoring.ts` — increments score by 1 and marks pipe.passed = true for each pipe where bird.x > pipe.x + pipeWidth and pipe.passed === false
 
 - [ ] 6. Implement the renderer
-  - [~] 6.1 Implement `render(ctx: CanvasRenderingContext2D, state: GameState, config: GameConfig): void` in `src/game/renderer.ts` with draw order: clear canvas, background, pipes, ground bar, bird, HUD score, start overlay (START phase), game-over overlay (GAME_OVER phase)
+  - [x] 6.1 Implement `render(ctx: CanvasRenderingContext2D, state: GameState, config: GameConfig): void` in `src/game/renderer.ts` with draw order: clear canvas, background, pipes, ground bar, bird, HUD score, start overlay (START phase), game-over overlay (GAME_OVER phase)
   - [~] 6.2 Ensure render skips all drawing operations if the canvas clear operation fails (per Req 7.3 error handling)
 
 - [ ] 7. Implement the input handler
